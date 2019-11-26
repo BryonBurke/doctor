@@ -1,5 +1,5 @@
 export class ApiService {
-  async getDoctor(city) {
+  async getWeatherByCity(city) {
     try {
       let response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.API_KEY}`);
       let jsonifiedResponse = await response.json();

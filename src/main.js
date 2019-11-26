@@ -1,19 +1,19 @@
-import { ApiService } from './../src/weather-service.js';
+import { ApiService } from './../src/api-service.js';
 
 $(document).ready(function() {
 
-  $('#getDoctorBtn').click(function() {
-    const city = $('#location').val();
-    $('#location').val("");
+  $('#weatherLocation').click(function() {
+    const ailment = $('#ailment').val();
+    $('#ailment').val("");
 
     (async () => {
-      let apiService = new ApiService();
-      const response = await apiService.getDoctor(city);
+      let weatherService = new ApiService();
+      const response = await weatherService.getWeatherByCity(ailment);
       getElements(response);
     })();
 
     function getElements(response) {
-      $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
+      $('.showHumidity').text(`The humidity in ${ailment} is ${response.main.humidity}%`);
       $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`);
     }
 
