@@ -1,23 +1,21 @@
+import { ApiService } from './../src/weather-service.js';
+
 $(document).ready(function() {
-  $('#weatherLocation').click(function() {
+
+  $('#getDoctorBtn').click(function() {
     const city = $('#location').val();
     $('#location').val("");
 
-    let request = new XMLHttpRequest();
-const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9716ff16d7266e5cbbc7542f1b2442a2`
-    request.onreadystatechange = function() {
-      if (this.readyState === 4 && this.status === 200) {
-        const response = JSON.parse(this.responseText);
-        getElements(response);
-      }
-    }
+    (async () => {
+      let apiService = new ApiService();
+      const response = await apiService.getDoctor(city);
+      getElements(response);
+    })();
 
-    request.open("GET", url, true);
-    request.send();
-
-   const getElements = function(response) {
+    function getElements(response) {
       $('.showHumidity').text(`The humidity in ${city} is ${response.main.humidity}%`);
       $('.showTemp').text(`The temperature in Kelvins is ${response.main.temp} degrees.`);
     }
+
   });
 });
